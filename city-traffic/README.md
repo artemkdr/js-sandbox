@@ -48,9 +48,28 @@ Return a single string containing the max traffic for every city, with each resu
 - The results must be **joined by a comma**.
 - **Example Output:** `"1:5,2:3,3:3"`
 
+
 ## Solution
 [city-traffic.js](city-traffic.js)
 
+### Optimization Approach
+
+The solution is optimized using a two-pass algorithm over the tree:
+
+1. **First Pass (Post-order Traversal):**
+   - This pass computes the population of each subtree using a depth-first search (DFS) approach.
+   - DFS is an algorithm for traversing or searching tree or graph data structures. It starts at the root and explores as far as possible along each branch before backtracking.
+   - In this context, DFS is used to visit all children of a node before processing the node itself (post-order), which allows us to sum up the populations of all descendant nodes efficiently.
+
+2. **Second Pass (Pre-order Traversal):**
+   - This pass computes the maximum traffic for each city by considering the populations calculated in the first pass.
+   - Pre-order traversal means processing the node before its children, which is useful for propagating information from parent to child.
+
+### Why No Recursion?
+
+JavaScript has a relatively low maximum call stack size, which means deep recursion (as in very deep or wide trees) can easily cause a "Maximum call stack size exceeded" error. To avoid this, the solution uses explicit stacks or iterative methods instead of recursion, ensuring it works efficiently even for very large trees.
+
+This approach guarantees both correctness and performance for any valid input size.
 
 **Note:** The script is self-tested. Tests are included at the bottom of the script file, so you can run the script directly with Node.js to see example outputs.
 
